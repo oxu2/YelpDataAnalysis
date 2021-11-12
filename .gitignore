@@ -4,3 +4,4 @@ review.json
 tip.json
 .DS_Store
 user.json
+*.csv

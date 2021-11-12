@@ -13,4 +13,3 @@ with open('./yelp_dataset/business.json','rb') as f:
             data.append(temp)
 data = pd.DataFrame(data)
 data.to_csv('./sandwiches.csv')
-
