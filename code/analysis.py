@@ -62,5 +62,6 @@ word_order(bad_to_good, ' ')
 
 ### Visualization
 plt.pyplot.hist(res_score,edgecolor='black',facecolor='blue', alpha=0.5)
+plt.pyplot.hist(res_count,edgecolor='black',facecolor='blue', alpha=0.5)
 review_score = review['stars_x']
 plt.pyplot.bar(range(1,6),[review_score.value_counts()[1],review_score.value_counts()[2],review_score.value_counts()[3],review_score.value_counts()[4],review_score.value_counts()[5]])
