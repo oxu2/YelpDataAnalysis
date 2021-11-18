@@ -1,5 +1,5 @@
 # For the whole set
-# kaggle datasets download -d cynthiarempel/amazon-us-customer-reviews-dataset
+# ~/.local/bin/kaggle datasets download -d cynthiarempel/amazon-us-customer-reviews-dataset
 
 # Particular File
 ~/.local/bin/kaggle datasets download -f amazon_reviews_us_Books_v1_02.tsv cynthiarempel/amazon-us-customer-reviews-dataset
