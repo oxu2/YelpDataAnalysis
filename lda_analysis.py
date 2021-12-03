@@ -63,6 +63,7 @@ sentences = ['cars','goes','eats','hours','went']
 sentences = list(map(lambda x: wnl.lemmatize(x,'v'),sentences))
 sentences = list(map(lambda x: wnl.lemmatize(x,'n'),sentences))
 print(sentences)
+
 """
 good_rew = list(map(lambda x: cleanwords(x), good_rew))
 bad_rew = list(map(lambda x: cleanwords(x), bad_rew))
