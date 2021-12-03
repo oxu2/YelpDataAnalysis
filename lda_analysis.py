@@ -63,6 +63,7 @@ sentences = ['cars','goes','eats','hours','went']
 sentences = list(map(lambda x: wnl.lemmatize(x,'v'),sentences))
 sentences = list(map(lambda x: wnl.lemmatize(x,'n'),sentences))
 print(sentences)
+
 """
 good_rew = list(map(lambda x: cleanwords(x), good_rew))
 bad_rew = list(map(lambda x: cleanwords(x), bad_rew))
@@ -76,66 +77,31 @@ df_bad['month'] = bad_month
 #df_good.to_csv("D:/yelp data/yelp_data/good_review.csv")
 #df_bad.to_csv("D:/yelp data/yelp_data/bad_review.csv")
 
-df_good = pd.read_csv('D:/yelp data/yelp_data/good_review.csv',encoding = "ISO-8859-1")
-df_bad = pd.read_csv('D:/yelp data/yelp_data/bad_review.csv',encoding = "ISO-8859-1")
 df_good = df_good[df_good['doclength']>=20]
 df_bad = df_bad[df_bad['doclength']>=20]
 
-#提
-df_good_spr = df_good[(df_good['month']==3)|(df_good['month']==4)|(df_good['month']==5)]
-df_bad_spr = df_bad[(df_bad['month']==3)|(df_bad['month']==4)|(df_bad['month']==5)]
-df_good_summer = df_good[(df_good['month']==6)|(df_good['month']==7)|(df_good['month']==8)]
-df_bad_summer = df_bad[(df_bad['month']==6)|(df_bad['month']==7)|(df_bad['month']==8)]
-df_good_aut = df_good[(df_good['month']==9)|(df_good['month']==10)|(df_good['month']==11)]
-df_bad_aut = df_bad[(df_bad['month']==9)|(df_bad['month']==10)|(df_bad['month']==11)]
-df_good_winter = df_good[(df_good['month']==12)|(df_good['month']==1)|(df_good['month']==2)]
-df_bad_winter = df_bad[(df_bad['month']==12)|(df_bad['month']==1)|(df_bad['month']==2)]
+#提取2018年的做为test
+df_good_2018 = df_good[df_good['year']==2018]
+df_bad_2018 = df_bad[df_bad['year']==2018]
 
-text_good_spr = df_good_spr['text']
-text_bad_spr = df_bad_spr['text']
-text_good_summer = df_good_summer['text']
-text_bad_summer = df_bad_summer['text']
-text_good_aut = df_good_aut['text']
-text_bad_aut = df_bad_aut['text']
-text_good_winter = df_good_winter['text']
-text_bad_winter = df_bad_winter['text']
+df_good_2018_winter = df_good_2018[(df_good_2018['month']==12)|(df_good_2018['month']==1)|(df_good_2018['month']==2)]
+df_bad_2018_winter = df_bad_2018[(df_bad_2018['month']==12)|(df_bad_2018['month']==1)|(df_bad_2018['month']==2)]
 
-dictionary = corpora.Dictionary(line.lower().split() for line in text_good_winter)
+text_good_2018_winter = df_good_2018_winter['text']
+text_bad_2018_winter = df_bad_2018_winter['text']
+
+dictionary = corpora.Dictionary(line.lower().split() for line in text_good_2018_winter)
 four_ids = [tokenid for tokenid, docfreq in iteritems(dictionary.dfs) if docfreq <= 3]
 dictionary.filter_tokens(four_ids)  # 去除只出现过一次的词
 dictionary.compactify()       # 删除去除单词后的空格
 
 text = []
-for line in text_good_winter:
+for line in text_good_2018_winter:
     text.append(line.lower().split())
 
 class MyCorpus(object):
     def __iter__(self):
-        for line in text_good_winter:
-            yield dictionary.doc2bow(line.lower().split())
-corpus_memory_friendly = MyCorpus()
-corpus = [vector for vector in corpus_memory_friendly]  # 将读取的文档转换成语料库
-
-LDA_models = LdaModel(corpus=corpus,id2word= dictionary, num_topics=5,
-                      update_every=1,chunksize=len(corpus),passes=100, alpha='auto',random_state=42)
-data = pyLDAvis.gensim_models.prepare(LDA_models, corpus, dictionary)
-pyLDAvis.save_html(data,'D:/yelp data/yelp_data/vis_lda_good_winter_5.html')
-
-
-LDA_models.save("D:/yelp data/yelp_data/Lda_good_winter_5")
-
-
-dictionary = corpora.Dictionary(line.lower().split() for line in text_bad_winter)
-four_ids = [tokenid for tokenid, docfreq in iteritems(dictionary.dfs) if docfreq <= 3]
-dictionary.filter_tokens(four_ids)  # 去除只出现过一次的词
-dictionary.compactify()       # 删除去除单词后的空格
-text = []
-for line in text_bad_winter:
-    text.append(line.lower().split())
-
-class MyCorpus(object):
-    def __iter__(self):
-        for line in text_bad_winter:
+        for line in text_good_2018_winter:
             yield dictionary.doc2bow(line.lower().split())
 corpus_memory_friendly = MyCorpus()
 corpus = [vector for vector in corpus_memory_friendly]  # 将读取的文档转换成语料库
@@ -143,7 +109,7 @@ corpus = [vector for vector in corpus_memory_friendly]  # 将读取的文档转�
 LDA_models = LdaModel(corpus=corpus,id2word= dictionary, num_topics=4,
                       update_every=1,chunksize=len(corpus),passes=100, alpha='auto',random_state=42)
 data = pyLDAvis.gensim_models.prepare(LDA_models, corpus, dictionary)
-pyLDAvis.save_html(data,'D:/yelp data/yelp_data/vis_lda_bad_winter_4.html')
+pyLDAvis.save_html(data,'D:/yelp data/yelp_data/vis_lda_good_4.html')
 
 
-LDA_models.save("D:/yelp data/yelp_data/Lda_bad_winter_4")
+LDA_models.save("D:/yelp data/yelp_data/Lda_18")
