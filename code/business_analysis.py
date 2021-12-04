@@ -21,8 +21,8 @@ good_rew = sandwiches[sandwiches['stars_x']==5]['text'].tolist()
 bad_rew = sandwiches[(sandwiches['stars_x']== 1) | (sandwiches['stars_x'] == 2)]['text'].tolist()
 good_rew_date = sandwiches[sandwiches['stars_x']==5]['date'].tolist()
 bad_rew_date = sandwiches[(sandwiches['stars_x']== 1) | (sandwiches['stars_x'] == 2)]['date'].tolist()
-good_business_idx = sandwiches[sandwiches['stars_x']==5]['name']
-bad_business_idx = sandwiches[(sandwiches['stars_x']==1) | (sandwiches['stars_x']==2)]['name']
+good_business_idx = sandwiches[sandwiches['stars_x']==5]['name'].to_list()
+bad_business_idx = sandwiches[(sandwiches['stars_x']==1) | (sandwiches['stars_x']==2)]['name'].tolist()
 """
 def date_month(x):
     month_data = list(re.match('([0-9]{4})-([0-9]{2})-([0-9]{2})', x).groups())[1]
@@ -93,8 +93,7 @@ LDA_models = LdaModel(corpus=corpus,id2word= dictionary, num_topics=6,
                       update_every=1,chunksize=len(corpus),passes=100, alpha='auto',random_state=42)
 data = pyLDAvis.gensim_models.prepare(LDA_models, corpus, dictionary)
 pyLDAvis.save_html(data,'D:/yelp data/yelp_data/vis_lda_bad_6.html')
-LDA_models.save("D:/yelp data/yelp_data/Lda_bad_6")
-
+#LDA_models.save("D:/yelp data/yelp_data/Lda_bad_6")
 LDA_model =  LdaModel.load("D:/yelp data/yelp_data/Lda_bad_6")
 
 """
@@ -104,12 +103,10 @@ for i, (word_, w) in enumerate(topics):
     print(word_)
     print(w)
 
-
 LDA_model.print_topic(1, topn=10)
 
 LDA_model[corpus[100]]
 
-L
 sum(LDA_model.alpha.array)
 
 len(LDA_model[corpus[1]])
@@ -132,20 +129,7 @@ def DF(num_topics, model, num_words=15):
             weight.append(w)
     return pd.DataFrame(list(zip(topicId, weight, word)), columns=['topicId', 'word', 'weight'])
 
-a = DF(6,LDA_model,15)
-
-def partitioning(df):
-    """
-    :param df: Dataframe with corresponding weight for each top word in each topic of each period
-    :return: partition based on TopicID
-
-    """
-
-    d = {}  # d[i] contains records for TopicID i
-    for topic in list(df['topicId'].unique()):  # for each topic
-        d[topic] = df.loc[df['topicId'] == topic]  # create dataframe with records
-        print('Number of records for Topic %d = %d' % (topic, len(d[topic])))
-    return d
+topic_top_words = DF(6,LDA_model,15) #get the top words for each  topic
 
 def topic_distribution(num_topics, model, corpus):
     """
@@ -167,19 +151,56 @@ def topic_distribution(num_topics, model, corpus):
     return pd.DataFrame(list(zip(doc, topicId, distributions)),
                         columns=['document', 'topicId', 'distribution'])
 
-
-
-doc, topicId, distributions = [], [], []
-for i in range(0, len(corpus[1:10])):
-    dist = LDA_model[corpus[i]]
-    topic_dist = pd.DataFrame(dist, columns=['topicid', 'dist'])
-    for topic in range(0, num_topics):
-        doc.append(i)
-        topicId.append(topic)
-        if (topic in topic_dist['topicid']):
-            distributions.append(topic_dist[topic_dist['topicid']== topic]['dist'].values[0])
-        else:
-            distributions.append(0)
-
 #提取每个document的主题分布
+def topic_distribution(num_topics, model, corpus):
+    """
+    function to compute the topical distribution in a document
+    :param num_topics: number of topics
+    """
+    topics = {}
+    for i in range(0, num_topics):
+        topics[i+1] = []
+    for i in range(0, len(corpus)):
+        dist = model[corpus[i]]
+        topic_dist = pd.DataFrame(dist, columns=['topicid', 'dist'])
+        c = topic_dist['topicid'].to_list()
+        for topic in range(0, num_topics):
+            if (topic in c):
+                topics[topic+1].append(topic_dist[topic_dist['topicid']== topic]['dist'].values[0])
+            else:
+                topics[topic+1].append(0)
+    return topics
+
+# get the topic distribution for each document
 doc_topic = topic_distribution(6, LDA_model, corpus)
+col_names = ['topic'+str(i+1) for  i in range(6)]
+for i in range(6):
+    df_bad[col_names[i]] = doc_topic[i+1]
+df_bad.to_csv("C:/Users/20172/Documents/GitHub/YelpDataAnalysis/data_set/doc_top_dist_bad.csv")
+
+text_good = df_good['text']
+text = []
+for line in text_good:
+    text.append(line.lower().split())
+
+dictionary = corpora.Dictionary(line.lower().split() for line in text_good)
+four_ids = [tokenid for tokenid, docfreq in iteritems(dictionary.dfs) if docfreq <= 3]
+dictionary.filter_tokens(four_ids)  # 去除只出现过一次的词
+dictionary.compactify()       # 删除去除单词后的空格
+
+class MyCorpus(object):
+    def __iter__(self):
+        for line in text_good:
+            yield dictionary.doc2bow(line.lower().split())
+corpus_memory_friendly = MyCorpus()
+corpus = [vector for vector in corpus_memory_friendly]  # 将读取的文档转换成语料库
+LDA_model =  LdaModel.load("D:/yelp data/yelp_data/Lda_good_6")
+
+# get the topic distribution for each document
+doc_topic = topic_distribution(6, LDA_model, corpus)
+col_names = ['topic'+str(i+1) for i in range(6)]
+for i in range(6):
+    df_good[col_names[i]] = doc_topic[i+1]
+df_good.to_csv("C:/Users/20172/Documents/GitHub/YelpDataAnalysis/data_set/doc_top_dist_good.csv")
+
+
