@@ -96,10 +96,9 @@ pyLDAvis.save_html(data,'D:/yelp data/yelp_data/vis_lda_bad_6.html')
 LDA_models.save("D:/yelp data/yelp_data/Lda_bad_6")
 
 LDA_model =  LdaModel.load("D:/yelp data/yelp_data/Lda_bad_6")
-LDA_model.get_topics()[1]
 
+"""
 topics = LDA_model.show_topic(topicid = 1,topn = 10) #展示每个主题的前10个topic
-
 for i, (word_, w) in enumerate(topics):
     print(i)
     print(word_)
@@ -114,7 +113,9 @@ L
 sum(LDA_model.alpha.array)
 
 len(LDA_model[corpus[1]])
+"""
 
+## 每个主题的前15个关键词，方便和pyldavis对应
 def DF(num_topics, model, num_words=15):
     """
     :param num_topics: number of topics
@@ -155,14 +156,30 @@ def topic_distribution(num_topics, model, corpus):
     for i in range(0, len(corpus)):
         dist = model[corpus[i]]
         topic_dist = pd.DataFrame(dist, columns=['topicid', 'dist'])
+        c = topic_dist['topicid'].to_list()
         for topic in range(0, num_topics):
             doc.append(i)
             topicId.append(topic)
-            if (topic in topic_dist['topicid']):
-                distributions.append(topic_dist[topic_dist['topicid']== topic]['dist'])
+            if (topic in c):
+                distributions.append(topic_dist[topic_dist['topicid']== topic]['dist'].values[0])
             else:
                 distributions.append(0)
     return pd.DataFrame(list(zip(doc, topicId, distributions)),
                         columns=['document', 'topicId', 'distribution'])
 
-doc_topic = topic_distribution(6, LDA_model, corpus[1])
+
+
+doc, topicId, distributions = [], [], []
+for i in range(0, len(corpus[1:10])):
+    dist = LDA_model[corpus[i]]
+    topic_dist = pd.DataFrame(dist, columns=['topicid', 'dist'])
+    for topic in range(0, num_topics):
+        doc.append(i)
+        topicId.append(topic)
+        if (topic in topic_dist['topicid']):
+            distributions.append(topic_dist[topic_dist['topicid']== topic]['dist'].values[0])
+        else:
+            distributions.append(0)
+
+#提取每个document的主题分布
+doc_topic = topic_distribution(6, LDA_model, corpus)
