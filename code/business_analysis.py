@@ -9,7 +9,6 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import warnings
 import pyLDAvis
-import pyLDAvis.gensim_models
 from gensim.models import LdaModel, CoherenceModel
 import numpy as np
 import os
@@ -72,10 +71,16 @@ df_good['name'] = good_business_idx
 df_bad['name'] = bad_business_idx
 df_good = df_good[df_good['doclength']>=20]
 df_bad = df_bad[df_bad['doclength']>=20]
+text_bad = df_bad['text']
 
 text = []
 for line in text_bad:
     text.append(line.lower().split())
+
+dictionary = corpora.Dictionary(line.lower().split() for line in text_bad)
+four_ids = [tokenid for tokenid, docfreq in iteritems(dictionary.dfs) if docfreq <= 3]
+dictionary.filter_tokens(four_ids)  # 去除只出现过一次的词
+dictionary.compactify()       # 删除去除单词后的空格
 
 class MyCorpus(object):
     def __iter__(self):
@@ -90,3 +95,74 @@ data = pyLDAvis.gensim_models.prepare(LDA_models, corpus, dictionary)
 pyLDAvis.save_html(data,'D:/yelp data/yelp_data/vis_lda_bad_6.html')
 LDA_models.save("D:/yelp data/yelp_data/Lda_bad_6")
 
+LDA_model =  LdaModel.load("D:/yelp data/yelp_data/Lda_bad_6")
+LDA_model.get_topics()[1]
+
+topics = LDA_model.show_topic(topicid = 1,topn = 10) #展示每个主题的前10个topic
+
+for i, (word_, w) in enumerate(topics):
+    print(i)
+    print(word_)
+    print(w)
+
+
+LDA_model.print_topic(1, topn=10)
+
+LDA_model[corpus[100]]
+
+L
+sum(LDA_model.alpha.array)
+
+len(LDA_model[corpus[1]])
+
+def DF(num_topics, model, num_words=15):
+    """
+    :param num_topics: number of topics
+    :param model: DTM trained model
+    :param num_words: number of words to display for the topicid at the time period
+    :return: Dataframe with corresponding weight for each top word in each topic of each period
+    """
+    topicId, weight, word = [], [], []
+    for s in range(num_topics):
+        topics = model.show_topic(topicid=s, topn=num_words)
+        for i, (word_, w) in enumerate(topics):
+            topicId.append(s)
+            word.append(word_)
+            weight.append(w)
+    return pd.DataFrame(list(zip(topicId, weight, word)), columns=['topicId', 'word', 'weight'])
+
+a = DF(6,LDA_model,15)
+
+def partitioning(df):
+    """
+    :param df: Dataframe with corresponding weight for each top word in each topic of each period
+    :return: partition based on TopicID
+
+    """
+
+    d = {}  # d[i] contains records for TopicID i
+    for topic in list(df['topicId'].unique()):  # for each topic
+        d[topic] = df.loc[df['topicId'] == topic]  # create dataframe with records
+        print('Number of records for Topic %d = %d' % (topic, len(d[topic])))
+    return d
+
+def topic_distribution(num_topics, model, corpus):
+    """
+    function to compute the topical distribution in a document
+    :param num_topics: number of topics
+    """
+    doc, topicId, distributions = [], [], []
+    for i in range(0, len(corpus)):
+        dist = model[corpus[i]]
+        topic_dist = pd.DataFrame(dist, columns=['topicid', 'dist'])
+        for topic in range(0, num_topics):
+            doc.append(i)
+            topicId.append(topic)
+            if (topic in topic_dist['topicid']):
+                distributions.append(topic_dist[topic_dist['topicid']== topic]['dist'])
+            else:
+                distributions.append(0)
+    return pd.DataFrame(list(zip(doc, topicId, distributions)),
+                        columns=['document', 'topicId', 'distribution'])
+
+doc_topic = topic_distribution(6, LDA_model, corpus[1])
