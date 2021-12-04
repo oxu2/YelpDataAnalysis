@@ -8,6 +8,8 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 import warnings
+import pyLDAvis
+import pyLDAvis.gensim_models
 from gensim.models import LdaModel, CoherenceModel
 import numpy as np
 import os
@@ -71,21 +73,13 @@ df_bad['name'] = bad_business_idx
 df_good = df_good[df_good['doclength']>=20]
 df_bad = df_bad[df_bad['doclength']>=20]
 
-text_good = df_good['text']
-text_bad = df_bad['text']
-
-dictionary = corpora.Dictionary(line.lower().split() for line in text_good)
-four_ids = [tokenid for tokenid, docfreq in iteritems(dictionary.dfs) if docfreq <= 3]
-dictionary.filter_tokens(four_ids)  # 去除只出现过一次的词
-dictionary.compactify()       # 删除去除单词后的空格
-
 text = []
-for line in text_good:
+for line in text_bad:
     text.append(line.lower().split())
 
 class MyCorpus(object):
     def __iter__(self):
-        for line in text_good:
+        for line in text_bad:
             yield dictionary.doc2bow(line.lower().split())
 corpus_memory_friendly = MyCorpus()
 corpus = [vector for vector in corpus_memory_friendly]  # 将读取的文档转换成语料库
@@ -93,6 +87,6 @@ corpus = [vector for vector in corpus_memory_friendly]  # 将读取的文档转�
 LDA_models = LdaModel(corpus=corpus,id2word= dictionary, num_topics=6,
                       update_every=1,chunksize=len(corpus),passes=100, alpha='auto',random_state=42)
 data = pyLDAvis.gensim_models.prepare(LDA_models, corpus, dictionary)
-pyLDAvis.save_html(data,'D:/yelp data/yelp_data/vis_lda_good_6.html')
-LDA_models.save("D:/yelp data/yelp_data/Lda_good_6")
+pyLDAvis.save_html(data,'D:/yelp data/yelp_data/vis_lda_bad_6.html')
+LDA_models.save("D:/yelp data/yelp_data/Lda_bad_6")
 
