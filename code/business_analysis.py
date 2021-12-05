@@ -17,10 +17,12 @@ from nltk.stem import WordNetLemmatizer
 wnl = WordNetLemmatizer()
 
 sandwiches = pd.read_csv('D:/yelp data/yelp_data/sandwiches_review_1202.csv')
+'''
 good_rew = sandwiches[sandwiches['stars_x']==5]['text'].tolist()
 bad_rew = sandwiches[(sandwiches['stars_x']== 1) | (sandwiches['stars_x'] == 2)]['text'].tolist()
 good_rew_date = sandwiches[sandwiches['stars_x']==5]['date'].tolist()
 bad_rew_date = sandwiches[(sandwiches['stars_x']== 1) | (sandwiches['stars_x'] == 2)]['date'].tolist()
+'''
 good_business_idx = sandwiches[sandwiches['stars_x']==5]['name'].to_list()
 bad_business_idx = sandwiches[(sandwiches['stars_x']==1) | (sandwiches['stars_x']==2)]['name'].tolist()
 """
@@ -124,12 +126,13 @@ def DF(num_topics, model, num_words=15):
     for s in range(num_topics):
         topics = model.show_topic(topicid=s, topn=num_words)
         for i, (word_, w) in enumerate(topics):
-            topicId.append(s)
+            topicId.append(s+1)
             word.append(word_)
             weight.append(w)
     return pd.DataFrame(list(zip(topicId, weight, word)), columns=['topicId', 'word', 'weight'])
 
 topic_top_words = DF(6,LDA_model,15) #get the top words for each  topic
+topic_top_words.to_csv("C:/Users/20172/Documents/GitHub/YelpDataAnalysis/data_set/topic_top_words_bad.csv")
 
 def topic_distribution(num_topics, model, corpus):
     """
@@ -152,6 +155,7 @@ def topic_distribution(num_topics, model, corpus):
                         columns=['document', 'topicId', 'distribution'])
 
 #提取每个document的主题分布
+#LDA_model.get_document_topics(corpus[0], minimum_probability=0.0)
 def topic_distribution(num_topics, model, corpus):
     """
     function to compute the topical distribution in a document
@@ -173,7 +177,7 @@ def topic_distribution(num_topics, model, corpus):
 
 # get the topic distribution for each document
 doc_topic = topic_distribution(6, LDA_model, corpus)
-col_names = ['topic'+str(i+1) for  i in range(6)]
+col_names = ['topic'+str(i+1) for i in range(6)]
 for i in range(6):
     df_bad[col_names[i]] = doc_topic[i+1]
 df_bad.to_csv("C:/Users/20172/Documents/GitHub/YelpDataAnalysis/data_set/doc_top_dist_bad.csv")
@@ -195,6 +199,9 @@ class MyCorpus(object):
 corpus_memory_friendly = MyCorpus()
 corpus = [vector for vector in corpus_memory_friendly]  # 将读取的文档转换成语料库
 LDA_model =  LdaModel.load("D:/yelp data/yelp_data/Lda_good_6")
+
+topic_top_words = DF(6,LDA_model,15) #get the top words for each  topic
+topic_top_words.to_csv("C:/Users/20172/Documents/GitHub/YelpDataAnalysis/data_set/topic_top_words_good.csv")
 
 # get the topic distribution for each document
 doc_topic = topic_distribution(6, LDA_model, corpus)
