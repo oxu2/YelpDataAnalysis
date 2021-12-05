@@ -203,4 +203,48 @@ for i in range(6):
     df_good[col_names[i]] = doc_topic[i+1]
 df_good.to_csv("C:/Users/20172/Documents/GitHub/YelpDataAnalysis/data_set/doc_top_dist_good.csv")
 
+bad_name = set(df_bad['name'].tolist()) #4740 Name
+good_name = set(df_good['name'].tolist()) #5007 Name
+union_name = bad_name & good_name #4550 Name
+only_good = good_name - union_name
+only_bad = bad_name - union_name
 
+union_name = list(union_name)
+only_good = list(only_good)
+only_bad = list(only_bad)
+
+topic_good = pd.DataFrame(df_good,columns=['name','topic1','topic2','topic3','topic4','topic5','topic6'])
+topic_good = topic_good.rename(columns = {'topic1':'good_topic1','topic2':'good_topic2','topic3':'good_topic3',
+                                          'topic4':'good_topic4','topic5':'good_topic5','topic6':'good_topic6'})
+topic_bad = topic_bad.rename(columns = {'topic1':'bad_topic1','topic2':'bad_topic2','topic3':'bad_topic3',
+                                          'topic4':'bad_topic4','topic5':'bad_topic5','topic6':'bad_topic6'})
+
+topic_good_mean = topic_good.mean()
+topic_good_mean.to_csv("C:/Users/20172/Documents/GitHub/YelpDataAnalysis/data_set/good_topic_mean.csv")
+topic_bad_mean = topic_bad.mean()
+topic_bad_mean.to_csv("C:/Users/20172/Documents/GitHub/YelpDataAnalysis/data_set/bad_topic_mean.csv")
+
+good_topic1 = topic_good['good_topic1'].groupby(topic_good['name']).mean()
+good_topic2 = topic_good['good_topic2'].groupby(topic_good['name']).mean()
+good_topic3 = topic_good['good_topic3'].groupby(topic_good['name']).mean()
+good_topic4 = topic_good['good_topic4'].groupby(topic_good['name']).mean()
+good_topic5 = topic_good['good_topic5'].groupby(topic_good['name']).mean()
+good_topic6 = topic_good['good_topic6'].groupby(topic_good['name']).mean()
+df_good_mean = pd.DataFrame(list(zip(list(good_topic6.keys()),list(good_topic1),list(good_topic2),list(good_topic3),
+                            list(good_topic4),list(good_topic5),list(good_topic6))), columns = ['names','good_topic1',
+                            'good_topic2','good_topic3','good_topic4','good_topic5','goodtopic_6'])
+
+bad_topic1 = topic_bad['bad_topic1'].groupby(topic_bad['name']).mean()
+bad_topic2 = topic_bad['bad_topic2'].groupby(topic_bad['name']).mean()
+bad_topic3 = topic_bad['bad_topic3'].groupby(topic_bad['name']).mean()
+bad_topic4 = topic_bad['bad_topic4'].groupby(topic_bad['name']).mean()
+bad_topic5 = topic_bad['bad_topic5'].groupby(topic_bad['name']).mean()
+bad_topic6 = topic_bad['bad_topic6'].groupby(topic_bad['name']).mean()
+df_bad_mean = pd.DataFrame(list(zip(list(bad_topic6.keys()),list(bad_topic1),list(bad_topic2),list(bad_topic3),
+                            list(bad_topic4),list(bad_topic5),list(bad_topic6))), columns = ['names','bad_topic1',
+                            'bad_topic2','bad_topic3','bad_topic4','bad_topic5','badtopic_6'])
+
+df_topic_mean_union = pd.merge(df_good_mean,df_bad_mean,on='names')
+df_topic_mean_union.to_csv("C:/Users/20172/Documents/GitHub/YelpDataAnalysis/data_set/df_topic_mean_union.csv")
+df_topic_mean = pd.merge(df_good_mean,df_bad_mean,on='names',how = 'outer')
+df_topic_mean.to_csv("C:/Users/20172/Documents/GitHub/YelpDataAnalysis/data_set/df_topic_mean.csv")
