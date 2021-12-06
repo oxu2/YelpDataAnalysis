@@ -290,4 +290,4 @@ business_id['value'] =  np.repeat(1,len(business_id))
 business_id_uniq = business_id.groupby(business_id['business_id'])
 df_topic_mean_union = pd.merge(df_topic_mean,business_id,on='names')
 
-business_name = df_topic_mean["name"]
+business_name = df_topic_mean["names"]
