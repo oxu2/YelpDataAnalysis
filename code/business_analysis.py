@@ -277,17 +277,19 @@ for i in range(len(df_topic_mean)):
 
 df_good = df_topic_mean[['good_topic1','good_topic2','good_topic3','good_topic4','good_topic5','good_topic6']]
 tmp_good = df_good.idxmax(1).to_list()
-
-
 df_topic_mean['main_good_topic'] = tmp_good
 df_topic_mean['main_bad_topic'] = tmp_bad
-df_topic_mean.to_csv("C:/Users/20172/Documents/GitHub/YelpDataAnalysis/data_set/df_topic_main.csv")
-sandwiches = pd.read_csv('D:/yelp data/yelp_data/sandwiches_review_1202.csv')
+
+
+df_topic_mean = pd.read_csv("C:/Users/20172/Documents/GitHub/YelpDataAnalysis/data_set/df_topic_main.csv")
 df_topic_mean_union = pd.merge(df_good_mean,df_bad_mean,on='names')
 business_id = sandwiches[['business_id','name']]
-value = np.repeat(1,len(business_id))
-business_id['value'] =  np.repeat(1,len(business_id))
+#value = np.repeat(1,len(business_id))
+#business_id['value'] =  np.repeat(1,len(business_id))
 business_id_uniq = business_id.groupby(business_id['business_id'])
 df_topic_mean_union = pd.merge(df_topic_mean,business_id,on='names')
-
-business_name = df_topic_mean["names"]
+a = sandwiches[sandwiches['name']==business_name[1]]['business_id']
+a = a.tolist()
+a = list(set(a))[0]
+business_name = df_topic_mean["names"].to_list()
+for i in business_name:
