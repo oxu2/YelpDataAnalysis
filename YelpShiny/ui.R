@@ -12,7 +12,7 @@ library(ggplot2)
 # Choices for drop-downs
 
 
-navbarPage("sandwich restraunt Advisor", id="nav",
+navbarPage("Sandwich Advisor", id="nav",
            tabPanel("Advisor",
                     div(class="outer",
                         
@@ -43,7 +43,7 @@ navbarPage("sandwich restraunt Advisor", id="nav",
                         absolutePanel(id = "controls", class = "panel panel-default", fixed = TRUE,
                                       draggable = TRUE, top = 60, left = "auto", right = 10, bottom = "auto",
                                       width = 450, height = "auto",
-                                      h2("sandwich restraunt Advisor"),
+                                      h2("Sandwich Advisor"),
                                  
                                                 plotOutput(outputId = "radarplot"),
                                 
@@ -72,7 +72,7 @@ navbarPage("sandwich restraunt Advisor", id="nav",
                     
                     
            ),
-           tabPanel("sandwich restraunt explorer",
+           tabPanel("Sandwich explorer",
                     fluidRow(
                       h1(htmlOutput("guide1")),
                       column(3,
