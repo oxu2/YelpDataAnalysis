@@ -211,7 +211,7 @@ function(input, output, session) {
                     #custom the grid
                     cglcol="grey", cglty=1, axislabcol="grey", caxislabels=seq(0,15,5), cglwd=0.8,
                     #custom labels
-                    vlcex=0.8 
+                    vlcex=0.8
         )
         legend(x=-1.4, y=1.2, legend = c("median", "sandwich restraunt"), bty = "n", pch=20 , col=colors_in , text.col = "grey", cex=1, pt.cex=2)
       })
