@@ -118,6 +118,7 @@ function(input, output, session) {
         is.null(input$cities) | City %in% input$cities
       ) %>%
       mutate(ClickMe = paste('<a class="go-map" href="" data-lat="', Lat, '" data-long="', Long, '" data-zip="', Business_id, '"><i class="fa fa-crosshairs"></i></a>', sep=""))
+      # mutate(ClickMe)
     action <- DT::dataTableAjax(session, df)
     DT::datatable(df, options = list(ajax = list(url = action)), escape = FALSE)
   })
