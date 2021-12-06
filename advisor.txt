@@ -1,0 +1,15 @@
+topic_number, topic_summary, suggestion
+
+bad_topic1, Take out, Your delivery orders receive many bad reviews.
+bad_topic2, Sandwiches taste, Many consumers are not satisfied with the taste of your sandwiches. Try to improve the taste and freshness of the food, or increase the variety.
+bad_topic3, Service, Many bad reviews show that the service of your restaurant needs to be improved. Try to train the waiters more.
+bad_topic4, Burger taste, Many consumers are not satisfied with the taste of your burger. Try to improve the taste and freshness of the food, or increase the variety.
+bad_topic5, Wait minute, Some customers report that the waiting time in your restaurant is too long. Maybe try to increase space or hire more employees.
+bad_topic6, Snack & Sides, Remember that snacks and side dishes are also an important part.
+
+good_topic1, Sandwiches taste, You get the most praise for your sandwich taste, Congratulations! But it doesn’t mean everyone likes it. Try to increase diversity.
+good_topic2, Burger taste, You get the most praise for your burger taste, Congratulations! But it doesn’t mean everyone likes it. Try to increase diversity.
+good_topic3, Customer service, Customer service in your shop is fantastic. Keep your standards and your store will become popular.
+good_topic4, Drinks and atmosphere, Drinks and environment in your store are wonderful! People like to have a drink in your shop.
+good_topic5, Breakfast taste, Your breakfast received special praise from many customers. Good jobs!
+good_topic6, Convenience, Many reviews praise the convenience of your store, which may be credit to your location, waiting time, or drive-through.

@@ -7,3 +7,4 @@ user.json
 *.csv
 ~$presentationYelpAnalysis.pptx
 *.zip
+.Rproj.user
