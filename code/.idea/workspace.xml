@@ -1,26 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d22568e9-5bac-4457-938c-45088eb4837b" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/visualization.py" beforeDir="false" afterPath="$PROJECT_DIR$/visualization.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../image/Fall_bad.png" beforeDir="false" afterPath="$PROJECT_DIR$/../image/Fall_bad.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../image/Fall_good.png" beforeDir="false" afterPath="$PROJECT_DIR$/../image/Fall_good.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../image/Spring_bad.png" beforeDir="false" afterPath="$PROJECT_DIR$/../image/Spring_bad.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../image/Spring_good.png" beforeDir="false" afterPath="$PROJECT_DIR$/../image/Spring_good.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../image/Summer_bad.png" beforeDir="false" afterPath="$PROJECT_DIR$/../image/Summer_bad.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../image/Summer_good.png" beforeDir="false" afterPath="$PROJECT_DIR$/../image/Summer_good.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../image/Winter_bad.png" beforeDir="false" afterPath="$PROJECT_DIR$/../image/Winter_bad.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../image/Winter_good.png" beforeDir="false" afterPath="$PROJECT_DIR$/../image/Winter_good.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../image/fall_bad.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../image/fall_good.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../image/spring_bad.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../image/spring_good.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../image/summer_bad.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../image/summer_good.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../image/winter_bad.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../image/winter_good.png" beforeDir="false" />
-    </list>
+    <list default="true" id="d22568e9-5bac-4457-938c-45088eb4837b" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -101,7 +82,7 @@
       <workItem from="1638652506795" duration="34000" />
       <workItem from="1638652571013" duration="11965000" />
       <workItem from="1638682505960" duration="3934000" />
-      <workItem from="1638766422411" duration="5307000" />
+      <workItem from="1638766422411" duration="5573000" />
     </task>
     <servers />
   </component>
