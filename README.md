@@ -11,7 +11,7 @@ This project will focus on Sandwich restaurants with data from Yelp, and the tar
 
   - [File Description in Code Folder](#file-description-in-code-folder)
 
-  - [Web-based APP](#link-to-the-web-based-app)
+  - [Web-based APP](#web-based-app)
   
   - [Acknowledgements](#acknowledgements)
 
