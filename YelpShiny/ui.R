@@ -35,7 +35,6 @@ navbarPage("Sandwich Advisor", id="nav",
                                       textOutput("space"),
                                       textOutput("info"),
                                       textOutput("contact1"),textOutput("contact2") 
-                                      # ,textInput("bus_id", "Business ID")
                                       
                         ),
 #right = 810

@@ -11,7 +11,7 @@ library(scales)
 # Leaflet bindings are a bit slow; for now we'll just sample to compensate
 # By ordering by centile, we ensure that the (comparatively rare) Superids
 # will be drawn last and thus be easier to see
-# yelp <- yelp[order(yelp$centile),]
+
 yelp = yelp[order(yelp$stars),]
 bus_id_search <<- 0
 
@@ -89,58 +89,31 @@ function(input, output, session) {
       })
       
       output$radarplot = renderPlot({
-        #maxmum = max(max(scale_final_score[id,-1]), max(mean_score))
-        #minimum = min(min(scale_final_score[id,-1]), min(mean_score))
-        #colors_border=c( rgb(0.2,0.5,0.5,0.9), rgb(0.8,0.2,0.5,0.9))
-        #colors_in=c( rgb(0.2,0.5,0.5,0.4), rgb(0.8,0.2,0.5,0.4))
-        #draw_radar = rbind(rep(maxmum,7),rep(minimum,7), mean_score, scale_final_score[id,-1])
-        #radarchart(draw_radar, axistype=1 , 
-                   #custom polygon
-                   #pcol=colors_border , pfcol=colors_in , plwd=4 , plty=1,
-                   #custom the grid
-                   #cglcol="grey", cglty=1, axislabcol="grey", caxislabels=seq(0,15,5), cglwd=0.8,
-                   #custom labels
-                   #vlcex=0.8 
-        #)
-        #legend(x=-1.4, y=1.2, legend = c("median", "sandwich restraunt"), bty = "n", pch=20 , col=colors_in , text.col = "grey", cex=1, pt.cex=2)
-        
+
         if(sum(scale_final_score[id,][2:7])>0){
         pie(as.vector(unlist(scale_final_score[id,][2:7])),
             labels = c("Sandwiches taste","Burger taste","Customer service","Drinks and atmosphere","Breakfast taste","Convenience"),
-            main = "good reviews' topics",
+            main = "topics of good reviews",
             col = c('red','green','yellow','grey','blue','pink'))
         }else{
         pie(as.vector(unlist(scale_final_score[sample(1:100,1),][2:7])),
               labels = c("Sandwiches taste","Burger taste","Customer service","Drinks and atmosphere","Breakfast taste","Convenience"),
-              main = "good reviews' topics",
+              main = "topics of good reviews",
               col = c('red','green','yellow','grey','blue','pink'))    
           }
         
         })
       output$badpieplot = renderPlot({
-        #maxmum = max(max(scale_final_score[id,-1]), max(mean_score))
-        #minimum = min(min(scale_final_score[id,-1]), min(mean_score))
-        #colors_border=c( rgb(0.2,0.5,0.5,0.9), rgb(0.8,0.2,0.5,0.9))
-        #colors_in=c( rgb(0.2,0.5,0.5,0.4), rgb(0.8,0.2,0.5,0.4))
-        #draw_radar = rbind(rep(maxmum,7),rep(minimum,7), mean_score, scale_final_score[id,-1])
-        #radarchart(draw_radar, axistype=1 , 
-        #custom polygon
-        #pcol=colors_border , pfcol=colors_in , plwd=4 , plty=1,
-        #custom the grid
-        #cglcol="grey", cglty=1, axislabcol="grey", caxislabels=seq(0,15,5), cglwd=0.8,
-        #custom labels
-        #vlcex=0.8 
-        #)
-        #legend(x=-1.4, y=1.2, legend = c("median", "sandwich restraunt"), bty = "n", pch=20 , col=colors_in , text.col = "grey", cex=1, pt.cex=2)
+
         if(sum(scale_final_score[id,][8:13])>0){
         pie(as.vector(unlist(scale_final_score[id,][8:13])),
             labels = c("Take out order","Sandwiches taste","Service","Burger taste","Wait minute","Snack & Sides"),
-            main = "bad reviews' topics",
+            main = "topics of bad reviews",
             col = c('red','green','yellow','grey','blue','pink'))
         }else{
           pie(as.vector(unlist(scale_final_score[sample(1:100,1),][8:13])),
                   labels = c("Take out order","Sandwiches taste","Service","Burger taste","Wait minute","Snack & Sides"),
-                  main = "good reviews' topics",
+                  main = "topics of good reviews",
                   col = c('red','green','yellow','grey','blue','pink'))}
         
       })
@@ -194,13 +167,13 @@ function(input, output, session) {
   })
   # Precalculate the breaks we'll need for the two histograms
   output$space = renderText({"-------------------------------"})
-  output$info = renderText({ "Contact"})
-  output$contact1 = renderText({ "Ouyang Xu"})
-  output$contact2 = renderText({ "E-mail: oxu2@wisc.edu"})
+  output$info = renderText({ "Contacts"})
+  output$contact1 = renderText({ "Ouyang Xu: oxu2[at]wisc[dot]edu"})
+  output$contact2 = renderText({ "Ziyue Zheng: zzheng232[at]wisc[dot]edu"})
   output$guide1 = renderUI({HTML( paste(HTML('&nbsp;'), "Search for your restraunt"))})
   output$guide2 = renderUI({HTML( paste(HTML('&nbsp;'), HTML("Find your business record and click the blue button on the right to check the advice and more details")))})
   output$guide3 = renderText({"Tips: you can either find your sandwich restraunt by filtering by location and rating, or input the relevant information such as business id on the top right of the table. By clicking of the blue button in the location button, the page would be redirected to the interactive map with a popup show more details about the sandwich restraunt."})
-  #output$topics = renderText({""})
+
   
 
   # This observer is responsible for maintaining the circles and legend,
@@ -232,33 +205,6 @@ function(input, output, session) {
     bus_id_search <<- event$id
     id = which(scale_final_score[,1] == bus_id_search)
     isolate({
-      # output$barplot = renderPlot({
-      #   cn = colnames(scale_final_score)
-      #   draw = data.frame(x = cn[-1], y = round(as.vector(t(scale_final_score[id,-1])),4))
-      #   ggplot(data = draw, aes(x,y))  +
-      #     geom_bar(stat = "identity", aes(fill = x)) + 
-      #     geom_text(aes(label = paste(y * 100, "%"),
-      #                   vjust = ifelse(y >= 0, 0, 1))) +
-      #     scale_y_continuous("Score", labels = percent_format()) +
-      #     theme_bw() + theme(legend.position="none") + labs(x = '')
-      # })
-      
-      # output$radarplot = renderPlot({
-      #   # maxmum = max(max(scale_final_score[id,-1]), max(mean_score))
-      #   # minimum = min(min(scale_final_score[id,-1]), min(mean_score))
-      #   colors_border=c( rgb(0.2,0.5,0.5,0.9), rgb(0.8,0.2,0.5,0.9))
-      #   colors_in=c( rgb(0.2,0.5,0.5,0.4), rgb(0.8,0.2,0.5,0.4))
-      #   draw_radar = rbind(rep(maxmum,7),rep(minimum,7), mean_score, scale_final_score[id,-1])
-      #   radarchart(draw_radar, axistype=1 , 
-      #               #custom polygon
-      #               pcol=colors_border , pfcol=colors_in , plwd=4 , plty=1,
-      #               #custom the grid
-      #               cglcol="grey", cglty=1, axislabcol="grey", caxislabels=seq(0,15,5), cglwd=0.8,
-      #               #custom labels
-      #               vlcex=0.8
-      #   )
-      #   legend(x=-1.4, y=1.2, legend = c("sandwich restraunt"), bty = "n", pch=20 , col=colors_in , text.col = "grey", cex=1, pt.cex=2)
-      # })
       output$advisor = renderUI({
         HTML(paste0(strsplit(advisor[advisor == bus_id_search, 2], '\n', fixed = TRUE)[[1]], sep = '<br/>............................................................................<br/>'))
       })
