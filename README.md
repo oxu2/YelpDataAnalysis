@@ -44,13 +44,14 @@ devtools::install_github("rstudio/leaflet")
 
 
 ## File Description in Code Folder
-TODO
+- [data_cleaning.py](code/data_cleaning.py) - Python code for cleaning the text data. Include sifting text based on its content, removing symbols and lemmatization.
+- [lda_analysis.py](code/lda_analysis.py) - Python code for transfering the text data into dictionary and corpus and then building the LDA models.
+- [business_analysis.py](code/lda_analysis.py) - Python code for analyzing the outcome of LDA model like finding the topic distribution of each reviews.
+- [visualization.py](code/visualization.py) - Python code for visualizating the outcome of LDA model such as drawing par plot. 
 <!-- - Folder BodyfatShiny - Code for Shiny App of body fat calculator based on final model. -->
 
-<!-- - [Data Preprocessing.R](Code/Data%20Preprocessing.R) - R code for data cleaning on Bodyfat.csv. -->
-<!-- - [Model Selection and Diagnostics.R](Code/Model%20Selection%20and%20Diagnostics.R) - R code for model building, selection based on cleaned data and diagnostics for the selected model. --> 
-<!-- - [Summary.pdf](Summary.pdf) - A two-page .pdf file of the summary of the whole project, including the description of project process and conclusions. -->
-<!-- - [Presentation.pdf](Presentation.pdf) - A .pdf file of the slides we used in presentation. -->
+- [Data Preprocessing.R](code/Data%20Preprocessing.R) - R code for data cleaning on Bodyfat.csv.
+
 
 ## Web-based APP
 
