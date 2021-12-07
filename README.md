@@ -28,21 +28,11 @@ This project will focus on Sandwich restaurants with data from Yelp, and the tar
 
 
 ## Installation
-These commands assume that your Python version is 3.6+ and that the Python 3
-version of `pip` is available as `pip3`.
+These commands assume that your Python version is 3.6+ and basic Machine Learning modules are already installed.
 It may be available as `pip` depending on how your system is configured.
 ```bash
 # [OPTIONAL] Activate a virtual environment
-pip3 install --upgrade virtualenv
-virtualenv -p python3 .envspam
-source .envspam/bin/activate
-
-# Install requirements (both shared and tutorial-specific)
-pip3 install -r requirements.txt
-pip3 install -r spam/requirements.txt
-
-# Launch the Jupyter notebook interface
-jupyter notebook spam
+pip install pyldavis
 ```
 This project depends upon a knowledge of  the packages in R, You can run this demo with:
 ```
