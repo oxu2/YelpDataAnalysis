@@ -6,7 +6,7 @@ advisor = read.csv(file = "df_topic_main_id.txt")[,(3:18)]
 # advisor[,1] = as.character(advisor[,1])#name
 # advisor[,16] = as.character(advisor[,16])#id
 scale_final_score = read.csv(file = "df_topic_main_id.txt")[,(3:18)]
-scale = read.csv("scale_final_score.csv")[,-1]
+# scale = read.csv("scale_final_score.csv")[,-1]
 scale_final_score[,16] = as.character(scale_final_score[,16])
 # mean_score = apply(scale_final_score[,-1], 2, median)
 #
