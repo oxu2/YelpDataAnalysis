@@ -1,7 +1,7 @@
 # YelpDataAnalysis
 This project will focus on Sandwich restaurants with data from Yelp, and the target is to analyze the reviews and provide data-driven suggestions to business owners. Specifically, it will categorize all the reviews by topic, and for each sandwich business, find out the reasons why they have received good reviews or bad reviews. Consumer behaviors and preferences are discussed in this project in order to provide businesses with unique business strategies in different seasons.
 <!-- *** -->
-<!-- Group 2, Module 2, BodyFatCalculator -->
+<!-- Group 5, Module 3, YelpDataAnalysis -->
 ***
 
 ## Table of Contents
@@ -44,11 +44,11 @@ shiny::runGitHub("rstudio/shiny-examples", subdir="063-superzip-example")
 
 
 ## File Description in Code Folder
-
+TODO
 <!-- - Folder BodyfatShiny - Code for Shiny App of body fat calculator based on final model. -->
-- [BodyFat.csv](Code/BodyFat.csv) - the raw data set of available measurements include age, weight, height, bmi, and various body circumference measurements.
+<!-- - [BodyFat.csv](Code/BodyFat.csv) - the raw data set of available measurements include age, weight, height, bmi, and various body circumference measurements.
 - [Data Preprocessing.R](Code/Data%20Preprocessing.R) - R code for data cleaning on Bodyfat.csv.
-- [Model Selection and Diagnostics.R](Code/Model%20Selection%20and%20Diagnostics.R) - R code for model building, selection based on cleaned data and diagnostics for the selected model.
+- [Model Selection and Diagnostics.R](Code/Model%20Selection%20and%20Diagnostics.R) - R code for model building, selection based on cleaned data and diagnostics for the selected model. -->
 <!-- - [Summary.pdf](Summary.pdf) - A two-page .pdf file of the summary of the whole project, including the description of project process and conclusions. -->
 <!-- - [Presentation.pdf](Presentation.pdf) - A .pdf file of the slides we used in presentation. -->
 
@@ -60,7 +60,7 @@ shiny::runGitHub("rstudio/shiny-examples", subdir="063-superzip-example")
 ![ShinyPreview1](image/YelpShinyPreview1.png)
 ![ShinyPreview2](image/YelpShinyPreview2.png)
 ## Acknowledgements
-This project is a project of STAT 628 Fall 2021 UW-Madison, supervised by Prof. Hyunseung Kang.
+This is a project of STAT 628 Fall 2021 at UW-Madison, supervised by Prof. Hyunseung Kang.
 
 
 ## Contributors
