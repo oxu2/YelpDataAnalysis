@@ -72,9 +72,9 @@ function(input, output, session) {
       bus_id_search <<- input$goto$zip
       lat <- input$goto$lat
       lng <- input$goto$lng
-      id = which(scale_final_score[,1] == bus_id_search)
+      id = which(scale_final_score[,16] == bus_id_search)
       output$barplot = renderPlot({
-        cn = colnames(scale_final_score)
+        cn = colnames(scale_final_score[,2:13])
         draw = data.frame(x = cn[-1], y = round(as.vector(t(scale_final_score[id,-1])),4))
         ggplot(data = draw, aes(x,y))  +
           geom_bar(stat = "identity", aes(fill = x)) + 
@@ -125,13 +125,11 @@ function(input, output, session) {
   
   ## Interactive Map ###########################################
   
-  # Create the map
+
+    # Create the map
   output$map <- renderLeaflet({
     leaflet() %>%
-      addTiles(
-        urlTemplate = "//{s}.tiles.mapbox.com/v3/jcheng.map-5ebohr46/{z}/{x}/{y}.png",
-        attribution = 'Maps by <a href="http://www.mapbox.com/">Mapbox</a>'
-      ) %>%
+      addTiles() %>%
       setView(lng = -93.85, lat = 37.45, zoom = 4)
   })
   
@@ -171,7 +169,7 @@ function(input, output, session) {
     
     leafletProxy("map", data = yelp) %>%
       clearShapes() %>%
-      addCircles(~longitude, ~latitude, radius=3000, layerId=~business_id,
+      addCircles(~longitude, ~latitude, radius=200, layerId=~business_id,
                  stroke=FALSE, fillOpacity=0.4, fillColor=pal(colorData)) %>%
       addLegend("bottomleft", pal=pal, values=colorData, 
                 title="Rating", layerId="colorLegend")
@@ -188,33 +186,33 @@ function(input, output, session) {
     bus_id_search <<- event$id
     id = which(scale_final_score[,1] == bus_id_search)
     isolate({
-      output$barplot = renderPlot({
-        cn = colnames(scale_final_score)
-        draw = data.frame(x = cn[-1], y = round(as.vector(t(scale_final_score[id,-1])),4))
-        ggplot(data = draw, aes(x,y))  +
-          geom_bar(stat = "identity", aes(fill = x)) + 
-          geom_text(aes(label = paste(y * 100, "%"),
-                        vjust = ifelse(y >= 0, 0, 1))) +
-          scale_y_continuous("Score", labels = percent_format()) +
-          theme_bw() + theme(legend.position="none") + labs(x = '')
-      })
+      # output$barplot = renderPlot({
+      #   cn = colnames(scale_final_score)
+      #   draw = data.frame(x = cn[-1], y = round(as.vector(t(scale_final_score[id,-1])),4))
+      #   ggplot(data = draw, aes(x,y))  +
+      #     geom_bar(stat = "identity", aes(fill = x)) + 
+      #     geom_text(aes(label = paste(y * 100, "%"),
+      #                   vjust = ifelse(y >= 0, 0, 1))) +
+      #     scale_y_continuous("Score", labels = percent_format()) +
+      #     theme_bw() + theme(legend.position="none") + labs(x = '')
+      # })
       
-      output$radarplot = renderPlot({
-        maxmum = max(max(scale_final_score[id,-1]), max(mean_score))
-        minimum = min(min(scale_final_score[id,-1]), min(mean_score))
-        colors_border=c( rgb(0.2,0.5,0.5,0.9), rgb(0.8,0.2,0.5,0.9))
-        colors_in=c( rgb(0.2,0.5,0.5,0.4), rgb(0.8,0.2,0.5,0.4))
-        draw_radar = rbind(rep(maxmum,7),rep(minimum,7), mean_score, scale_final_score[id,-1])
-        radarchart(draw_radar, axistype=1 , 
-                    #custom polygon
-                    pcol=colors_border , pfcol=colors_in , plwd=4 , plty=1,
-                    #custom the grid
-                    cglcol="grey", cglty=1, axislabcol="grey", caxislabels=seq(0,15,5), cglwd=0.8,
-                    #custom labels
-                    vlcex=0.8
-        )
-        legend(x=-1.4, y=1.2, legend = c("median", "sandwich restraunt"), bty = "n", pch=20 , col=colors_in , text.col = "grey", cex=1, pt.cex=2)
-      })
+      # output$radarplot = renderPlot({
+      #   # maxmum = max(max(scale_final_score[id,-1]), max(mean_score))
+      #   # minimum = min(min(scale_final_score[id,-1]), min(mean_score))
+      #   colors_border=c( rgb(0.2,0.5,0.5,0.9), rgb(0.8,0.2,0.5,0.9))
+      #   colors_in=c( rgb(0.2,0.5,0.5,0.4), rgb(0.8,0.2,0.5,0.4))
+      #   draw_radar = rbind(rep(maxmum,7),rep(minimum,7), mean_score, scale_final_score[id,-1])
+      #   radarchart(draw_radar, axistype=1 , 
+      #               #custom polygon
+      #               pcol=colors_border , pfcol=colors_in , plwd=4 , plty=1,
+      #               #custom the grid
+      #               cglcol="grey", cglty=1, axislabcol="grey", caxislabels=seq(0,15,5), cglwd=0.8,
+      #               #custom labels
+      #               vlcex=0.8
+      #   )
+      #   legend(x=-1.4, y=1.2, legend = c("sandwich restraunt"), bty = "n", pch=20 , col=colors_in , text.col = "grey", cex=1, pt.cex=2)
+      # })
       output$advisor = renderUI({
         HTML(paste0(strsplit(advisor[advisor == bus_id_search, 2], '\n', fixed = TRUE)[[1]], sep = '<br/>............................................................................<br/>'))
       })
