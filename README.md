@@ -35,12 +35,11 @@ It may be available as `pip` depending on how your system is configured.
 pip install pyldavis
 pip install nltk
 ```
-This project depends upon a knowledge of  the packages in R, You can run this demo with:
+This project depends upon a knowledge of  the packages in R, You can install with:
 ```
 if (!require(devtools))
   install.packages("devtools")
 devtools::install_github("rstudio/leaflet")
-shiny::runGitHub("rstudio/shiny-examples", subdir="063-superzip-example")
 ```
 
 
