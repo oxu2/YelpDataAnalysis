@@ -1,7 +1,5 @@
 # YelpDataAnalysis
-
-
-The body fat percentage is a measure of fitness level, which can be calculated as the total mass of fat divided by total body mass. In this project, a simple, robust, and accurate method to estimate the percentage of body fat using available measurements is proposed, related to man's weight, circumferences of abdomen, and thigh. We will follow several steps such as data cleaning, model building and selection, and model diagnostics. The final measurement will be a linear model with three variables which are the circumference of the abdomen, the circumference of the thigh, and body weight.
+This project will focus on Sandwich restaurants with data from Yelp, and the target is to analyze the reviews and provide data-driven suggestions to business owners. Specifically, it will categorize all the reviews by topic, and for each sandwich business, find out the reasons why they have received good reviews or bad reviews. Consumer behaviors and preferences are discussed in this project in order to provide businesses with unique business strategies in different seasons.
 <!-- *** -->
 <!-- Group 2, Module 2, BodyFatCalculator -->
 ***
@@ -23,24 +21,35 @@ The body fat percentage is a measure of fitness level, which can be calculated a
 
 ***
 ## Dependencies
-- [R](https://www.r-project.org/)
+- [Python 3.6+](https://www.python.org/)
+- [R 4.0+](https://www.r-project.org/)
 - [R Shiny](https://github.com/rstudio/shiny)(Shiny is supported on the latest release version of R, as well as the previous four minor release versions of R)
 
 
 
 ## Installation
+These commands assume that your Python version is 3.6+ and that the Python 3
+version of `pip` is available as `pip3`.
+It may be available as `pip` depending on how your system is configured.
+```bash
+# [OPTIONAL] Activate a virtual environment
+pip3 install --upgrade virtualenv
+virtualenv -p python3 .envspam
+source .envspam/bin/activate
 
-This project depends upon a knowledge of  the packages in R.
+# Install requirements (both shared and tutorial-specific)
+pip3 install -r requirements.txt
+pip3 install -r spam/requirements.txt
 
+# Launch the Jupyter notebook interface
+jupyter notebook spam
 ```
-install.packages("shiny")
-install.packages("car")
-install.packages("tidyverse")
-install.packages("caret")
-install.packages("broom")
-install.packages("MVA")
-install.packages("biwt")
-install.packages("robustbase")
+This project depends upon a knowledge of  the packages in R, You can run this demo with:
+```
+if (!require(devtools))
+  install.packages("devtools")
+devtools::install_github("rstudio/leaflet")
+shiny::runGitHub("rstudio/shiny-examples", subdir="063-superzip-example")
 ```
 
 
@@ -58,8 +67,8 @@ install.packages("robustbase")
 [Shiny APP Link](https://ouyangxu.shinyapps.io/YelpShiny/)
 
 ### Preview:
-![ShinyPreview](image/YelpShinyPreview1.png)
-
+![ShinyPreview1](image/YelpShinyPreview1.png)
+![ShinyPreview2](image/YelpShinyPreview2.png)
 ## Acknowledgements
 This project is a project of STAT 628 Fall 2021 UW-Madison, supervised by Prof. Hyunseung Kang.
 
