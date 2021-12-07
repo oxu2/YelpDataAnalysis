@@ -83,22 +83,68 @@ function(input, output, session) {
           scale_y_continuous("Score", labels = percent_format()) +
           theme_bw() + theme(legend.position="none") + labs(x = '')
       })
-      output$radarplot = renderPlot({
-        maxmum = max(max(scale_final_score[id,-1]), max(mean_score))
-        minimum = min(min(scale_final_score[id,-1]), min(mean_score))
-        colors_border=c( rgb(0.2,0.5,0.5,0.9), rgb(0.8,0.2,0.5,0.9))
-        colors_in=c( rgb(0.2,0.5,0.5,0.4), rgb(0.8,0.2,0.5,0.4))
-        draw_radar = rbind(rep(maxmum,7),rep(minimum,7), mean_score, scale_final_score[id,-1])
-        radarchart(draw_radar, axistype=1 , 
-                   #custom polygon
-                   pcol=colors_border , pfcol=colors_in , plwd=4 , plty=1,
-                   #custom the grid
-                   cglcol="grey", cglty=1, axislabcol="grey", caxislabels=seq(0,15,5), cglwd=0.8,
-                   #custom labels
-                   vlcex=0.8 
-        )
-        legend(x=-1.4, y=1.2, legend = c("median", "sandwich restraunt"), bty = "n", pch=20 , col=colors_in , text.col = "grey", cex=1, pt.cex=2)
+      
+      output$tips = renderText({
+        return("<font size='5'>Tips<br> <font size='3'>First<br>Many consumers are not satisfied with the taste of your sandwiches. Try to improve the taste and freshness of the food, or increase the variety.<br><br>Second<br>Many bad reviews show that the service of your restaurant needs to be improved. Try to train the waiters more.")
       })
+      
+      output$radarplot = renderPlot({
+        #maxmum = max(max(scale_final_score[id,-1]), max(mean_score))
+        #minimum = min(min(scale_final_score[id,-1]), min(mean_score))
+        #colors_border=c( rgb(0.2,0.5,0.5,0.9), rgb(0.8,0.2,0.5,0.9))
+        #colors_in=c( rgb(0.2,0.5,0.5,0.4), rgb(0.8,0.2,0.5,0.4))
+        #draw_radar = rbind(rep(maxmum,7),rep(minimum,7), mean_score, scale_final_score[id,-1])
+        #radarchart(draw_radar, axistype=1 , 
+                   #custom polygon
+                   #pcol=colors_border , pfcol=colors_in , plwd=4 , plty=1,
+                   #custom the grid
+                   #cglcol="grey", cglty=1, axislabcol="grey", caxislabels=seq(0,15,5), cglwd=0.8,
+                   #custom labels
+                   #vlcex=0.8 
+        #)
+        #legend(x=-1.4, y=1.2, legend = c("median", "sandwich restraunt"), bty = "n", pch=20 , col=colors_in , text.col = "grey", cex=1, pt.cex=2)
+        
+        if(sum(scale_final_score[id,][2:7])>0){
+        pie(as.vector(unlist(scale_final_score[id,][2:7])),
+            labels = c("Sandwiches taste","Burger taste","Customer service","Drinks and atmosphere","Breakfast taste","Convenience"),
+            main = "good reviews' topics",
+            col = c('red','green','yellow','grey','blue','pink'))
+        }else{
+        pie(as.vector(unlist(scale_final_score[sample(1:100,1),][2:7])),
+              labels = c("Sandwiches taste","Burger taste","Customer service","Drinks and atmosphere","Breakfast taste","Convenience"),
+              main = "good reviews' topics",
+              col = c('red','green','yellow','grey','blue','pink'))    
+          }
+        
+        })
+      output$badpieplot = renderPlot({
+        #maxmum = max(max(scale_final_score[id,-1]), max(mean_score))
+        #minimum = min(min(scale_final_score[id,-1]), min(mean_score))
+        #colors_border=c( rgb(0.2,0.5,0.5,0.9), rgb(0.8,0.2,0.5,0.9))
+        #colors_in=c( rgb(0.2,0.5,0.5,0.4), rgb(0.8,0.2,0.5,0.4))
+        #draw_radar = rbind(rep(maxmum,7),rep(minimum,7), mean_score, scale_final_score[id,-1])
+        #radarchart(draw_radar, axistype=1 , 
+        #custom polygon
+        #pcol=colors_border , pfcol=colors_in , plwd=4 , plty=1,
+        #custom the grid
+        #cglcol="grey", cglty=1, axislabcol="grey", caxislabels=seq(0,15,5), cglwd=0.8,
+        #custom labels
+        #vlcex=0.8 
+        #)
+        #legend(x=-1.4, y=1.2, legend = c("median", "sandwich restraunt"), bty = "n", pch=20 , col=colors_in , text.col = "grey", cex=1, pt.cex=2)
+        if(sum(scale_final_score[id,][8:13])>0){
+        pie(as.vector(unlist(scale_final_score[id,][8:13])),
+            labels = c("Take out order","Sandwiches taste","Service","Burger taste","Wait minute","Snack & Sides"),
+            main = "bad reviews' topics",
+            col = c('red','green','yellow','grey','blue','pink'))
+        }else{
+          pie(as.vector(unlist(scale_final_score[sample(1:100,1),][8:13])),
+                  labels = c("Take out order","Sandwiches taste","Service","Burger taste","Wait minute","Snack & Sides"),
+                  main = "good reviews' topics",
+                  col = c('red','green','yellow','grey','blue','pink'))}
+        
+      })
+      
       output$advisor = renderUI({
         HTML(paste0(strsplit(advisor[advisor == bus_id_search, 2], '\n', fixed = TRUE)[[1]], sep = '<br/>............................................................................<br/>'))
       })
@@ -154,7 +200,7 @@ function(input, output, session) {
   output$guide1 = renderUI({HTML( paste(HTML('&nbsp;'), "Search for your restraunt"))})
   output$guide2 = renderUI({HTML( paste(HTML('&nbsp;'), HTML("Find your business record and click the blue button on the right to check the advice and more details")))})
   output$guide3 = renderText({"Tips: you can either find your sandwich restraunt by filtering by location and rating, or input the relevant information such as business id on the top right of the table. By clicking of the blue button in the location button, the page would be redirected to the interactive map with a popup show more details about the sandwich restraunt."})
-  
+  #output$topics = renderText({""})
   
 
   # This observer is responsible for maintaining the circles and legend,

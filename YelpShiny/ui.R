@@ -25,12 +25,12 @@ navbarPage("Sandwich Advisor", id="nav",
                         leafletOutput("map", width="100%", height="100%"),
                         
                         absolutePanel(id = "controls", class = "panel panel-default", fixed = TRUE,
-                                      draggable = TRUE, top = "auto", left = "auto", right = 30, bottom = 30,
-                                      width = 250, height = "auto",
-                                   #    h2("Sandwich Advisor"),
+                                      draggable = TRUE, top = "auto", left = 50, right = "auto", bottom = 30,
+                                      width = 380, height = "auto",
+                                      h2("Sandwich Advisor"),
                                  
-                                          #       plotOutput(outputId = "radarplot"),
-                                
+                                      plotOutput(outputId = "radarplot", height = 350,width = 350),
+                                      plotOutput(outputId = "badpieplot", height = 350,width = 350),
                                       h4(htmlOutput("advisor")),
                                       textOutput("space"),
                                       textOutput("info"),
@@ -40,13 +40,18 @@ navbarPage("Sandwich Advisor", id="nav",
                         ),
 #right = 810
                         absolutePanel(id = "controls", class = "panel panel-default", fixed = TRUE,
-                                      draggable = TRUE, top = 30, left = "auto", right = 30, bottom = "auto",
+                                      draggable = TRUE, top = 100, left = "auto", right = 180, bottom = "auto",
                                       width = 250, height = "auto",
                                       
                                       h2("sandwich restraunt map"),
                                       selectInput("rating", "Rating", choices = 1:5, selected = 5)
                         ),
-                        
+
+absolutePanel(id = "controls", class = "panel panel-default", fixed = TRUE,
+              draggable = TRUE, top = "auto", left = "auto", right = 150, bottom = 30,
+              width = 350, height = 500,
+              htmlOutput(outputId = "tips")
+),
                         
                         tags$div(id="cite",
                                  '       Inspired by', tags$em('https://shiny.rstudio.com/gallery/superzip-example.html'), ' by Joe Cheng <joe@rstudio.com>.'),

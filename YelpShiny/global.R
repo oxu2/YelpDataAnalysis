@@ -9,6 +9,7 @@ scale_final_score = read.csv(file = "df_topic_main_id.txt")[,(3:18)]
 scale = read.csv("scale_final_score.csv")[,-1]
 scale_final_score[,16] = as.character(scale_final_score[,16])
 # mean_score = apply(scale_final_score[,-1], 2, median)
+#
 # colnames(scale_final_score)[6] = "food and drink"
 # mean_score = apply(scale[,-1], 2, median)
 # colnames(scale)[6] = "food and drink"
