@@ -48,9 +48,7 @@ devtools::install_github("rstudio/leaflet")
 - [lda_analysis.py](code/lda_analysis.py) - Python code for transfering the text data into dictionary and corpus and then building the LDA models.
 - [business_analysis.py](code/lda_analysis.py) - Python code for analyzing the outcome of LDA model like finding the topic distribution of each reviews.
 - [visualization.py](code/visualization.py) - Python code for visualizating the outcome of LDA model such as drawing par plot. 
-<!-- - Folder BodyfatShiny - Code for Shiny App of body fat calculator based on final model. -->
 
-- [Data Preprocessing.R](code/Data%20Preprocessing.R) - R code for data cleaning on Bodyfat.csv.
 
 
 ## Web-based APP
