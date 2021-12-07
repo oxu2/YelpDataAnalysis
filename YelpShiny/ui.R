@@ -22,30 +22,14 @@ navbarPage("Sandwich Advisor", id="nav",
                         ),
                         
                         # If not using custom CSS, set height of leafletOutput to a number instead of percent
-                        leafletOutput("map", width="70%", height="100%"),
-                        
-                        # absolutePanel(id = "controls", class = "panel panel-default", fixed = TRUE,
-                        #               draggable = TRUE, top = 60, left = "auto", right = 10, bottom = "auto",
-                        #               width = 780, height = "auto",
-                        #               h2("sandwich restraunt Advisor"),
-                        #               splitLayout(style = "border: 1px solid silver:", cellWidths = c(375,375), 
-                        #                           plotOutput(outputId = "radarplot"),
-                        #                           plotOutput(outputId = "barplot")
-                        #               ),
-                        #               h4(htmlOutput("advisor")),
-                        #               textOutput("space"),
-                        #               textOutput("info"),
-                        #               textOutput("contact1"),textOutput("contact2") 
-                        #               # ,textInput("bus_id", "Business ID")
-                        #             
-                        # ),
+                        leafletOutput("map", width="100%", height="100%"),
                         
                         absolutePanel(id = "controls", class = "panel panel-default", fixed = TRUE,
-                                      draggable = TRUE, top = 60, left = "auto", right = 10, bottom = "auto",
-                                      width = 450, height = "auto",
-                                      h2("Sandwich Advisor"),
+                                      draggable = TRUE, top = "auto", left = "auto", right = 30, bottom = 30,
+                                      width = 250, height = "auto",
+                                   #    h2("Sandwich Advisor"),
                                  
-                                                plotOutput(outputId = "radarplot"),
+                                          #       plotOutput(outputId = "radarplot"),
                                 
                                       h4(htmlOutput("advisor")),
                                       textOutput("space"),
@@ -56,16 +40,16 @@ navbarPage("Sandwich Advisor", id="nav",
                         ),
 #right = 810
                         absolutePanel(id = "controls", class = "panel panel-default", fixed = TRUE,
-                                      draggable = TRUE, top = 60, left = "auto", right = 500, bottom = "auto",
-                                      width = 300, height = "auto",
+                                      draggable = TRUE, top = 30, left = "auto", right = 30, bottom = "auto",
+                                      width = 250, height = "auto",
                                       
-                                      h2("sandwich restraunt Map"),
+                                      h2("sandwich restraunt map"),
                                       selectInput("rating", "Rating", choices = 1:5, selected = 5)
                         ),
                         
                         
                         tags$div(id="cite",
-                                 'Inspired by', tags$em('https://shiny.rstudio.com/gallery/superzip-example.html'), ' by Joe Cheng <joe@rstudio.com>.'),
+                                 '       Inspired by', tags$em('https://shiny.rstudio.com/gallery/superzip-example.html'), ' by Joe Cheng <joe@rstudio.com>.'),
                         
                     )
                     
