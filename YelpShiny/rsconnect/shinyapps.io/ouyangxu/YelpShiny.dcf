@@ -5,9 +5,9 @@ account: ouyangxu
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 5274623
-bundleId: 5338201
+bundleId: 5340832
 url: https://ouyangxu.shinyapps.io/YelpShiny/
-when: 1638859802.99566
-lastSyncTime: 1638859802.99567
+when: 1638896851.87348
+lastSyncTime: 1638896851.87349
 asMultiple: FALSE
 asStatic: FALSE

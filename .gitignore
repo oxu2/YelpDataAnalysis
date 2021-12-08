@@ -4,7 +4,10 @@ review.json
 tip.json
 .DS_Store
 user.json
-*.csv
+# *.csv
 ~$*
 *.zip
 .Rproj.user
+sandwiches_review_1202.csv
+doc_top_dist_good.csv
+good_review.csv

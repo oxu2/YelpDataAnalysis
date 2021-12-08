@@ -33,24 +33,23 @@ It may be available as `pip` depending on how your system is configured.
 ```bash
 # [OPTIONAL] Activate a virtual environment
 pip install pyldavis
+pip install nltk
 ```
-This project depends upon a knowledge of  the packages in R, You can run this demo with:
+This project depends upon a knowledge of  the packages in R, You can install with:
 ```
 if (!require(devtools))
   install.packages("devtools")
 devtools::install_github("rstudio/leaflet")
-shiny::runGitHub("rstudio/shiny-examples", subdir="063-superzip-example")
 ```
 
 
 ## File Description in Code Folder
-TODO
-<!-- - Folder BodyfatShiny - Code for Shiny App of body fat calculator based on final model. -->
-<!-- - [BodyFat.csv](Code/BodyFat.csv) - the raw data set of available measurements include age, weight, height, bmi, and various body circumference measurements.
-- [Data Preprocessing.R](Code/Data%20Preprocessing.R) - R code for data cleaning on Bodyfat.csv.
-- [Model Selection and Diagnostics.R](Code/Model%20Selection%20and%20Diagnostics.R) - R code for model building, selection based on cleaned data and diagnostics for the selected model. -->
-<!-- - [Summary.pdf](Summary.pdf) - A two-page .pdf file of the summary of the whole project, including the description of project process and conclusions. -->
-<!-- - [Presentation.pdf](Presentation.pdf) - A .pdf file of the slides we used in presentation. -->
+- [data_cleaning.py](code/data_cleaning.py) - Python code for cleaning the text data. Include sifting text based on its content, removing symbols and lemmatization.
+- [lda_analysis.py](code/lda_analysis.py) - Python code for transfering the text data into dictionary and corpus and then building the LDA models.
+- [business_analysis.py](code/lda_analysis.py) - Python code for analyzing the outcome of LDA model like finding the topic distribution of each reviews.
+- [visualization.py](code/visualization.py) - Python code for visualizating the outcome of LDA model such as drawing par plot. 
+
+
 
 ## Web-based APP
 
