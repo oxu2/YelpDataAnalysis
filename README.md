@@ -65,6 +65,6 @@ This is a project of STAT 628 Fall 2021 at UW-Madison, supervised by Prof. Hyuns
 ## Contributors
 - **Shuren He** - (she249@wisc.edu) : Contribute to most part of the LDA model including selecting and training model.
 - **Ziyue Zheng** - (zzheng232@wisc.edu) : Contribute to the t-test part, the analysis of the LDA model outcome, R Shiny app, report writing.
-- **Ouyang Xu** - (oxu2@wisc.edu) : Contribute to part of the LDA model, R Shiny app Github construction, Github construction, report writing.
+- **Ouyang Xu** - (oxu2@wisc.edu) : Contribute to part of the LDA model, R Shiny app, Github construction, report writing.
 
 
