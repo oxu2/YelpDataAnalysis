@@ -28,7 +28,7 @@ This project will focus on Sandwich restaurants with data from Yelp, and the tar
 
 
 ## Installation
-These commands assume that your Python version is 3.6+ and basic Machine Learning modules are already installed.
+These commands assume that your Python version is 3.6+ and basic  Python libraries for Machine Learning are already installed.
 It may be available as `pip` depending on how your system is configured.
 ```bash
 # [OPTIONAL] Activate a virtual environment
